@@ -6,6 +6,7 @@ import AllProductsPage from '../pages/allProductsPage';
 
 export default function SignIn(props){
   const currentUser=props.currentUser;
+  const userId=props.userId;
     const[username,setUsername]=useState("");
     const[password,setPassword]=useState("");
     const[message,setmessage]=useState("")
@@ -16,6 +17,7 @@ export default function SignIn(props){
         e.preventDefault()
         try{
         const data = await axios.post(`https://equipment-hiring.herokuapp.com/signin`,{username,password})
+       userId(data.data.userData._id)
        currentUser(data.data.message);
        props.history.push(`/cart`)
       }catch(err){

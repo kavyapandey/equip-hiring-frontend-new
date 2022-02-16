@@ -5,12 +5,14 @@ import Product from "../components/product";
 
 export default function CartPage(props){
    const {cartItems,onRemove,singInStatus}=props;
-   console.log(cartItems)
     // const productID = props.match.params.id;
      //const quantity = props.location.search? Number(props.location.search.split('=')[1]) : 1;
      const checkoutHandler = () => {
              if(!singInStatus)
             { props.history.push('/signin')}
+            else{
+                props.history.push('/shipping')
+            }
      }
     return(
            <div className="row" style={{"margin-top":"70px","margin-left":"17px"}}>

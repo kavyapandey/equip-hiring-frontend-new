@@ -11,21 +11,28 @@ import axios from 'axios';
 import ContactUs from './components/contactUs';
 import SignIn from './components/signIn';
 import Register from './components/register';
+import ShippingAddress from './pages/shippingAddress';
+import PaymentMethod from './pages/paymentMethod';
+import PlaceOrder from './pages/placeOrder';
 function App() {
   const [cartItems,setCartItems]=useState([]);
   const [loggedUser,setLoggedUser]=useState("");
+  const [UID,setUID]=useState("");
   const [isSignedIn,setIsSignedIn]=useState(false);
+
+  useEffect(()=>{
+    localStorage.setItem('cart',JSON.stringify(cartItems));
+  },[cartItems])
+
  const onAdd=(product,quantity,days)=>{
    const exist=cartItems.find((x)=>x.id===product.id);
    if(exist){
      cartItems.map((x)=>
 x.id===product.id?{...exist,qty:quantity,days:days}:x
      )
-     
    }
    else{
     setCartItems([...cartItems,{...product,qty:quantity,days:days}])
- 
   }
  }
 
@@ -47,6 +54,12 @@ x.id===product.id?{...exist,qty:quantity,days:days}:x
      var name = user.match(/^([^@]*)@/)[1];
      setLoggedUser(name)
      setIsSignedIn(true)
+     localStorage.setItem('username',JSON.stringify(name));
+   }
+ }
+ const userId =(id)=>{
+   if(id){
+     setUID(id);
    }
  }
  const handleLogout = () =>{
@@ -82,8 +95,11 @@ x.id===product.id?{...exist,qty:quantity,days:days}:x
       <Route path="/contact" component={ContactUs} exact/>
       <Route path="/product/:id" component={(props)=><ProductPage {...props} cartItems={cartItems} onAdd={onAdd}/>}/>
       <Route path="/cart/:id?" component={(props)=><CartPage {...props} cartItems={cartItems} onAdd={onAdd} onRemove={onRemove} singInStatus={isSignedIn}/>}/>
-      <Route path="/signin" component={(props)=><SignIn {...props} currentUser={currentUser}/>} exact/>
+      <Route path="/signin" component={(props)=><SignIn {...props} currentUser={currentUser} userId={userId}/>} exact/>
       <Route path="/register" component={Register} exact/>
+      <Route path="/shipping" component={ShippingAddress} exact/>
+      <Route path="/payment" component={PaymentMethod} exact/>
+      <Route path="/placeorder" component={(props)=><PlaceOrder {...props} cartItems={cartItems} currentUser={currentUser}/>} exact/>
       <footer class="bg-light py-5">
             <div class="container px-4 px-lg-5"><div class="small text-center text-muted">Copyright &copy; 2021 - EquipmentOnRent</div></div>
         </footer>

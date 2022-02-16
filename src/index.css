@@ -13,3 +13,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.form{
+  max-width: 50rem;
+  margin: 0 auto;
+  margin-top: 85px
+}
+.form label {
+  margin: 0.5rem 0.5rem;
+}
+.form input{
+    border-radius: 0.5rem !important;
+    border: 0.1rem solid #a4a4a4 !important;
+    padding: 8px 10px !important;
+    font-family: Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+
+}
+.form>div {
+  display: flex;
+  flex-direction: column;
+  margin: 0.1rem;
+}
+.form-btn{
+  width: 15%;
+  margin: auto;
+}
+.blockDisplay{
+  display: block !important;
+}
